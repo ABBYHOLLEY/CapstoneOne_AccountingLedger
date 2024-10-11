@@ -36,12 +36,14 @@ public class Main {
             }
             switch (mainMenuCommand){
                 case 1:
-                    addTransaction();
+                    addDeposit();
                     break;
                 case 2:
+                    makePayment();
+                case 3:
                     displayAllTransactions();
                     break;
-                case 3:
+                case 4:
                     System.out.println("Exiting...");
                     break;
                 default:
