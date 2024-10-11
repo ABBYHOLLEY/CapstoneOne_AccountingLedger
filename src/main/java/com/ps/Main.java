@@ -2,9 +2,13 @@ package com.ps;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Main {
 
@@ -49,7 +53,21 @@ public class Main {
     public static void displayAllTransactions(){
       try {
           BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+
           String firstLine = bufferedReader.readLine();
+          String input;
+
+          while ((input = bufferedReader.readLine()) != null){
+              String[] transactionarr = input.split("\\|");
+
+              LocalDateTime date = LocalDateTime.parse(date, DateTimeFormatter.);
+              LocalDateTime time = LocalDateTime.parse(time, DateTimeFormatter.);
+              String description = transactionarr[2];
+              String vendor = transactionarr[3];
+              Float amount = Float.parseFloat(input);
+
+
+          }
       }
     }
 }
