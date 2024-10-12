@@ -2,6 +2,7 @@ package com.ps;
 
 import java.io.BufferedReader; // To read data
 import java.io.FileReader; // Also to read data
+import java.sql.SQLOutput;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException; // Used if user enters incorrect data
@@ -76,7 +77,30 @@ public class Main {
               Transaction transaction = new Transaction(date, time, description, vendor, amount);
               allTransactionsInLedger.add(transaction);
 
+              allTransactionsInLedger.add(new Transaction(date, time, description, vendor, amount));
           }
-      }
+          bufferedReader.close();
+      }catch (Exception e){
+          e.printStackTrace();
+        }
+    }
+    public static void addTransaction(){
+        System.out.println("Please enter the details of the transaction");
+
+        System.out.println("Date: ");
+        LocalDateTime date = inputScanner.nextLine();
+
+        System.out.println("Time: ");
+
+        System.out.println("Description: ");
+        String description = inputScanner.nextLine();
+
+        System.out.println("Vendor: ");
+        String vendor = inputScanner.nextLine();
+
+        System.out.println("Amount: ");
+        String amount = inputScanner.nextLine();
+
+
     }
 }
