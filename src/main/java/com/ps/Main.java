@@ -15,6 +15,32 @@ public class Main {
     static Scanner inputScanner = new Scanner(System.in);
     static ArrayList<Transaction> allTransactionsInLedger = new ArrayList<>();
 
+    public static void loadAll(){
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv")); // Opens file.csv to read from it
+
+            String firstLine = bufferedReader.readLine();// First line skipped
+            String input;
+
+            while ((input = bufferedReader.readLine()) != null){
+                String[] transactionarr = input.split("\\|");
+
+                LocalDate date = LocalDate.parse(transactionarr[0]);
+                LocalTime time = LocalTime.parse(transactionarr[1]);
+                String description = transactionarr[2];
+                String vendor = transactionarr[3];
+                Float amount = Float.parseFloat(transactionarr[4]);
+
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                allTransactionsInLedger.add(transaction);
+
+            }
+            bufferedReader.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         loadAll();
         int mainMenuCommand;
@@ -150,31 +176,6 @@ public class Main {
 
     }
 
-    public static void loadAll(){
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv")); // Opens file.csv to read from it
-
-            String firstLine = bufferedReader.readLine();// First line skipped
-            String input;
-
-            while ((input = bufferedReader.readLine()) != null){
-                String[] transactionarr = input.split("\\|");
-
-                LocalDate date = LocalDate.parse(transactionarr[0]);
-                LocalTime time = LocalTime.parse(transactionarr[1]);
-                String description = transactionarr[2];
-                String vendor = transactionarr[3];
-                Float amount = Float.parseFloat(transactionarr[4]);
-
-                Transaction transaction = new Transaction(date, time, description, vendor, amount);
-                allTransactionsInLedger.add(transaction);
-
-            }
-            bufferedReader.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
     public static void displayAll(){
         for (Transaction transaction: allTransactionsInLedger){
             System.out.println(transaction);
@@ -245,6 +246,9 @@ public class Main {
                 case 5:
                     searchByVendor();
                     break;
+                case 6:
+                    customSearch();
+                    break;
                 case 0:
                     System.out.println("Returning to home page");
                     break;
@@ -296,6 +300,56 @@ public class Main {
                 System.out.println(transaction);
             }
         } scanner.close();
+    }
+    public static void customSearch(){
+        int customSearchMenuCommand;
+        do {
+        System.out.println("Custom Search");
+        System.out.println("What do you want to search by?");
+        System.out.println("1)Start Date");
+        System.out.println("2)End Date");
+        System.out.println("3)Description");
+        System.out.println("4)Amount");
+        System.out.println("0)Back to reports page..");
+        System.out.println("Command");
+        try {
+            customSearchMenuCommand = commandScanner.nextInt();
+        }catch (InputMismatchException ime){
+            customSearchMenuCommand = 0;
+        }
+        switch (customSearchMenuCommand){
+            case 1:
+                startDate();
+                break;
+            case 2:
+                endDate();
+                break;
+            case 3:
+                description();
+                break;
+            case 4:
+                amount();
+                break;
+            case 0:
+                System.out.println("Returning to reports page..");
+                break;
+            default:
+                System.out.println("Invalid command...Try again!");
+            }
+
+        }while (customSearchMenuCommand != 0);
+    }
+    public static void startDate(){
+        System.out.println("Enter the start date of the transaction you are searching for.");
+    }
+    public static void endDate(){
+        System.out.println("Enter the end date of the transaction you are searching for.");
+    }
+    public static void description(){
+        System.out.println("Enter the description of the the transaction you are searching for.");
+    }
+    public static void amount(){
+        System.out.println("Enter the amount of the transaction you are searching for.");
     }
 
     // Need first line of file to be skipped
