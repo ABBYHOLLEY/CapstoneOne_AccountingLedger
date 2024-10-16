@@ -202,16 +202,45 @@ public class Main {
         System.out.println("Enter the vendor: ");
         String vendor = inputScanner.nextLine();
 
-        System.out.println("Enter the amount: ");
+        System.out.println("Enter deposit amount (please use a positive value to make a deposit): ");
         String amountInput = inputScanner.nextLine();
         Float amount = Float.parseFloat(amountInput);
 
     }
     public static void makePayment(){
-        System.out.println("Please enter the payment details");
+        System.out.println("Please enter the payment details: ");
+
+        // Need the current date and time for payment
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
+        // Get payment description
+        System.out.println("Enter the payment description: ");
+        String description = inputScanner.nextLine();
+
+        // Get vendor name from user
+        System.out.println("Enter vendor name: ");
+        String vendor = inputScanner.nextLine();
+
+        // Get payment amount from user
+        System.out.println("Enter payment amount (Please use a negative value to make a payment): ");
+        float amount = inputScanner.nextFloat();
+        inputScanner.nextLine();
+
+        // Check if amount inputed is positive
+        if (amount > 0){
+            amount = -amount; // Payments will decrease the balance, that is why it is negative
+        }
+        // Create transaction object for payment
+        Transaction transaction = new Transaction(LocalDate.parse(date), LocalTime.parse(time), description, vendor, amount);
+
+        // Add transaction to ledger
+        allTransactionsInLedger.add(transaction);// come back to fix this
+
+
+        System.out.println("Payment added, thank you!");
+        // come back to fix this and add a few things
+        System.out.println(transaction);
     }
     public static void loadAll(){
         try {
@@ -245,10 +274,33 @@ public class Main {
         }
     }
     public static void displayDeposit(){
-        System.out.println("Testing displayDeposit");
+        System.out.println("Displaying all deposits");
 
+        // Check to see if there are any deposits in ledger
+        if (allTransactionsInLedger.isEmpty()){
+            System.out.println("Not transactions match your search.");
+        } else {
+            // Loop through the transactions to display all deposits
+            for (Transaction transaction : allTransactionsInLedger){
+                if (transaction.getAmount()>0){
+                    System.out.println(transaction); // Print deposit transaction
+                }
+            }
+        }
     }
     public static void displayPayments(){
-        System.out.println("Testing displayPayments");
+        System.out.println("Displaying all payments");
+
+        // Make sure that the transaction is in the ledger
+        if (allTransactionsInLedger.isEmpty()){
+            System.out.println("No transactions match your search.");
+        }else {
+            // Loop through transactions and only show payments
+            for (Transaction transaction : allTransactionsInLedger){
+                if (transaction.getAmount()<0){
+                    System.out.println(transaction); // Print payment transaction
+                }
+            }
+        }
     }
 }
