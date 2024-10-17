@@ -347,6 +347,13 @@ public class Main {
     }
     public static void description(){
         System.out.println("Enter the description of the the transaction you are searching for.");
+        String description = inputScanner.nextLine();
+
+        for (Transaction transaction : allTransactionsInLedger){
+            if (transaction.getDescription().equalsIgnoreCase(description)){
+                System.out.println(transaction);
+            }
+        }
     }
     public static void amount(){
         System.out.println("Enter the amount of the transaction you are searching for.");
