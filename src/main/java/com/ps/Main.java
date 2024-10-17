@@ -86,8 +86,10 @@ public class Main {
 
         System.out.println("Please enter the details of the transaction");
 
+        // Need current date for deposit
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        // Need current time for deposit
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         System.out.println("Enter the transaction description: ");
@@ -98,7 +100,14 @@ public class Main {
 
         System.out.println("Enter deposit amount (please use a positive value to make a deposit): ");
         String amountInput = inputScanner.nextLine();
-        Float amount = Float.parseFloat(amountInput);
+        Float amount = Float.parseFloat(amountInput); // Float because it could be use a decimal
+
+        // Create a new transaction
+        Transaction transaction = new Transaction(LocalDate.parse(date), LocalTime.parse(time), description, vendor, amount);
+        allTransactionsInLedger.add(transaction); // Add the transaction to ledger
+
+        System.out.println("Deposit added!"); // Confirm that user added deposit
+        System.out.println(transaction); // Print out transaction for user to see
 
     }
     public static void makePayment(){
@@ -260,21 +269,26 @@ public class Main {
     }
 
     public static void displayMonthToDate(){
-        LocalDate currentDate = LocalDate.now();
-        LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
-        for (Transaction transaction: allTransactionsInLedger){
+        LocalDate currentDate = LocalDate.now(); // Current date
+        LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1); // Getting the day of month you want (1st of month)
+        for (Transaction transaction: allTransactionsInLedger){ // Searching through all transactions in ledger
+
+         //   if transaction is after the first day of the month and before current date, print transaction
         if (transaction.getDate().isAfter(firstDayOfMonth)&&transaction.getDate().isBefore(currentDate))
             System.out.println(transaction);
         }
     }
     public static void displayPreviousMonth(){
-        LocalDate currentDate = LocalDate.now();
-        LocalDate previousMonthDate = currentDate.minusMonths(1);
-        for (Transaction transaction: allTransactionsInLedger){
+        LocalDate currentDate = LocalDate.now(); // Needs current date to figure out previous month
+        LocalDate previousMonthDate = currentDate.minusMonths(1); // Subtracting one month from current date
+        for (Transaction transaction: allTransactionsInLedger){ // Searching through all transactions in Ledger
+
+            // if transaction is one month before current date, print out transaction
             if (transaction.getDate().isAfter(previousMonthDate)&&transaction.getDate().isBefore(currentDate))
                 System.out.println(transaction);
         }
     }
+    // Years are exactly like dates, basically switch out months to years
     public static void displayYearToDate(){
         LocalDate currentDate = LocalDate.now();
         LocalDate firstDayOfYear = currentDate.withDayOfYear(1);
@@ -296,13 +310,15 @@ public class Main {
         System.out.println("Enter vendor name: ");
         String searchVendor = scanner.nextLine();
         for (Transaction transaction: allTransactionsInLedger){
+
+            // If vendor is the vendor that the user is searching for (while ignoring case sensitivity) print out transaction
             if (transaction.getVendor().equalsIgnoreCase(searchVendor)){
                 System.out.println(transaction);
             }
         } scanner.close();
     }
 
-    public static void customSearch(){
+    public static void customSearch(){ // Need to work on custom search and research different ways to execute
         int customSearchMenuCommand;
         do {
         System.out.println("Custom Search");
@@ -356,7 +372,7 @@ public class Main {
         String description = inputScanner.nextLine();
 
         for (Transaction transaction : allTransactionsInLedger){
-            if (transaction.getDescription().equalsIgnoreCase(description)){
+            if (transaction.getDescription().equalsIgnoreCase(description)){ // Need to work on this
                 System.out.println(transaction);
             }
         }
