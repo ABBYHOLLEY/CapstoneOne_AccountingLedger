@@ -301,15 +301,15 @@ public class Main {
             }
         } scanner.close();
     }
+
     public static void customSearch(){
         int customSearchMenuCommand;
         do {
         System.out.println("Custom Search");
         System.out.println("What do you want to search by?");
-        System.out.println("1)Start Date");
-        System.out.println("2)End Date");
-        System.out.println("3)Description");
-        System.out.println("4)Amount");
+        System.out.println("1)Date range");
+        System.out.println("2)Description");
+        System.out.println("3)Amount");
         System.out.println("0)Back to reports page..");
         System.out.println("Command");
         try {
@@ -319,15 +319,12 @@ public class Main {
         }
         switch (customSearchMenuCommand){
             case 1:
-                startDate();
+                dateRange();
                 break;
             case 2:
-                endDate();
-                break;
-            case 3:
                 description();
                 break;
-            case 4:
+            case 3:
                 amount();
                 break;
             case 0:
@@ -339,11 +336,20 @@ public class Main {
 
         }while (customSearchMenuCommand != 0);
     }
-    public static void startDate(){
-        System.out.println("Enter the start date of the transaction you are searching for.");
-    }
-    public static void endDate(){
-        System.out.println("Enter the end date of the transaction you are searching for.");
+    public static void dateRange(){
+        System.out.println("Enter the start date of the transaction you are searching for(yyyy-mm-dd): ");
+        String startDateInput = inputScanner.nextLine();
+        System.out.println("Enter the end date of the transaction you are searching for(yyyy-mm-dd): ");
+        String endDateInput = inputScanner.nextLine();
+
+        LocalDate startDate = LocalDate.parse(startDateInput);
+        LocalDate endDate = LocalDate.parse(endDateInput);
+
+        for (Transaction transaction : allTransactionsInLedger){
+            if (!transaction.getDate().isBefore(startDate)&&!transaction.getDate().isAfter(endDate)){
+                System.out.println(transaction);
+            }
+        }
     }
     public static void description(){
         System.out.println("Enter the description of the the transaction you are searching for.");
