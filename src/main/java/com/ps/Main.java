@@ -10,6 +10,9 @@ import java.util.InputMismatchException; // Used if user enters incorrect data
 import java.util.Scanner;
 
 public class Main {
+   public static final String ANSI_RESET = "\u001B[0m";
+   public static final String ANSI_GREEN = "\u001B[32m";
+   public static final String ANSI_RED = "\u001B[31m";
     // Scanners to get data from user
     static Scanner commandScanner = new Scanner(System.in); // Reads numbers
     static Scanner inputScanner = new Scanner(System.in); // Reads text
@@ -201,7 +204,7 @@ public class Main {
             // Loop through the transactions to display all deposits
             for (Transaction transaction : allTransactionsInLedger){
                 if (transaction.getAmount()>0){
-                    System.out.println(transaction); // Print deposit transaction
+                    System.out.println(ANSI_GREEN + transaction + ANSI_RESET); // Print deposit transaction
                 }
             }
         }
@@ -216,7 +219,7 @@ public class Main {
             // Loop through transactions and only show payments
             for (Transaction transaction : allTransactionsInLedger){
                 if (transaction.getAmount()<0){
-                    System.out.println(transaction); // Print payment transaction
+                    System.out.println(ANSI_RED + transaction + ANSI_RESET); // Print payment transaction
                 }
             }
         }
