@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class Main {
     // Scanners to get data from user
-    static Scanner commandScanner = new Scanner(System.in);
-    static Scanner inputScanner = new Scanner(System.in);
-    static ArrayList<Transaction> allTransactionsInLedger = new ArrayList<>();
+    static Scanner commandScanner = new Scanner(System.in); // Reads numbers
+    static Scanner inputScanner = new Scanner(System.in); // Reads text
+    static ArrayList<Transaction> allTransactionsInLedger = new ArrayList<>(); // This is where all transactions are stored
 
     public static void loadAll(){
         try {
@@ -46,6 +46,7 @@ public class Main {
         int mainMenuCommand;
         // Menu for user to choose three options
         do {
+            System.out.println("Welcome to your account!");
             System.out.println("Main Menu");
             System.out.println("1)Add Deposit");
             System.out.println("2)Make Payment");
