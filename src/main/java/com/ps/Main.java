@@ -111,7 +111,7 @@ public class Main {
         allTransactionsInLedger.add(transaction); // Add the transaction to ledger
 
         System.out.println("Deposit added!"); // Confirm that user added deposit
-        System.out.println(transaction); // Print out transaction for user to see
+        System.out.println(ANSI_GREEN + transaction + ANSI_RESET); // Print out transaction for user to see
 
     }
     public static void makePayment(){
@@ -147,7 +147,7 @@ public class Main {
 
         System.out.println("Payment added, thank you!");
         // come back to fix this and add a few things
-        System.out.println(transaction);
+        System.out.println(ANSI_RED + transaction + ANSI_RESET);
     }
     public static void ledger(){
         int ledgerMenuCommand;
