@@ -13,6 +13,10 @@ public class Main {
    public static final String ANSI_RESET = "\u001B[0m";
    public static final String ANSI_GREEN = "\u001B[32m";
    public static final String ANSI_RED = "\u001B[31m";
+   public static final String ANSI_BLUE = "\u001B[34m";
+   public static final String ANSI_CYAN = "\u001B[36m";
+   public static final String ANSI_YELLOW = "\u001B[33m";
+   public static final String ANSI_PURPLE = "\u001B[35m";
     // Scanners to get data from user
     static Scanner commandScanner = new Scanner(System.in); // Reads numbers
     static Scanner inputScanner = new Scanner(System.in); // Reads text
@@ -49,13 +53,13 @@ public class Main {
         int mainMenuCommand;
         // Menu for user to choose three options
         do {
-            System.out.println("Welcome to your account!");
-            System.out.println("Main Menu");
-            System.out.println("1)Add Deposit");
-            System.out.println("2)Make Payment");
-            System.out.println("3)Ledger");
-            System.out.println("0)Exit");
-            System.out.println("Command: ");
+            System.out.println(ANSI_BLUE + "Welcome to your account ledger!" + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "Main Menu" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "1) Add Deposit" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "2) Make Payment" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "3) Ledger" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "0) Exit" + ANSI_RESET);
+            System.out.print(ANSI_PURPLE + "Enter your command: " + ANSI_RESET);
 
             try { // Try block is for user to enter valid #, if not error message prints asking for valid input
                 mainMenuCommand =
